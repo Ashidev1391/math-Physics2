@@ -15,7 +15,7 @@ SECRET_KEY = 'django-insecure-j2un01$$*1c$r_i1@=evqt*k$m@io)0-^((22=gowey1d=qcwe
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://math-physics2.onrender.com']
 
 
 # Application definition
