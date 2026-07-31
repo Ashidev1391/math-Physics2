@@ -1,0 +1,232 @@
+/* ============================================
+   Physics & Math Calculator — Global Styles
+   ============================================ */
+
+:root {
+    --font-main: 'Vazirmatn', 'Segoe UI', Tahoma, sans-serif;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-soft: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+* {
+    font-family: var(--font-main);
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: url("/media/background.png");
+    min-height: 100vh;
+}
+
+/* ---------- Navbar ---------- */
+.navbar-brand {
+    font-size: 1.5rem;
+}
+
+/* ---------- Cards (generic) ---------- */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ---------- Forms ---------- */
+.form-label {
+    color: #495057;
+    font-weight: 600;
+}
+
+.form-control,
+.form-select {
+    border-radius: 10px;
+}
+
+.form-select:focus,
+.form-control:focus {
+    border-color: #0d6efd;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* ---------- Buttons ---------- */
+.btn-primary {
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(13, 110, 253, 0.4);
+}
+
+.btn-custom {
+    background: var(--gradient-primary);
+    border: none;
+    color: #fff;
+    padding: 10px;
+    font-weight: 600;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.link-custom {
+    color: #764ba2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.link-custom:hover {
+    text-decoration: underline;
+    color: #5a387e;
+}
+
+/* ---------- Home page hero ---------- */
+.hero-section {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 100px 0;
+    border-radius: 0 0 50px 50px;
+}
+
+.dept-card {
+    border: none;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.dept-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.math-color {
+    background: linear-gradient(135deg, #e3f0ff 0%, #ffffff 100%);
+    color: #0d6efd;
+}
+
+.physics-color {
+    background: linear-gradient(135deg, #fff0e3 0%, #ffffff 100%);
+    color: #fd7e14;
+}
+
+/* ---------- Resource / book cards ---------- */
+.resource-card {
+    transition: all 0.3s ease;
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.resource-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-header-icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.badge-level {
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+}
+
+/* ---------- Auto-style raw Django form fields (no Bootstrap class by default) ---------- */
+.auth-card form input[type="text"],
+.auth-card form input[type="password"],
+.auth-card form input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border: 1px solid #ced4da;
+    border-radius: 10px;
+    font-size: 1rem;
+    background-color: #fff;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-card form input:focus {
+    outline: none;
+    border-color: #764ba2;
+    box-shadow: 0 0 0 0.2rem rgba(118, 75, 162, 0.25);
+}
+
+.auth-card .form-text {
+    margin-top: 0.35rem;
+}
+
+.auth-card .form-text ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.auth-card .form-text ul li {
+    position: relative;
+    padding-left: 0.9rem;
+}
+
+.auth-card .form-text ul li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #a89bd1;
+}
+
+/* ---------- Auth pages (login / signup) ---------- */
+.auth-wrapper {
+    min-height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.auth-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    width: 100%;
+    max-width: 420px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.auth-card .card-body {
+    padding: 2.5rem;
+    background: #fff;
+}
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 576px) {
+    .card-body {
+        padding: 1.5rem !important;
+    }
+    h2, h3 {
+        font-size: 1.5rem;
+    }
+}
+.description-box {
+    max-height: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    line-height: 2;
+    border-radius: 8px;
+}
+
+.description-box p {
+    white-space: pre-line;
+    word-break: break-word;
+}

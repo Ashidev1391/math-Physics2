@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row justify-content-center mt-4" dir="rtl">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <h2 class="text-center mb-4 fw-bold text-primary">
+                    <i class="bi bi-calculator me-2"></i>ابزارهای ریاضی
+                </h2>
+
+                <p class="text-center text-muted mb-4">یک عملیات را برای شروع انتخاب کنید</p>
+
+                <form method="POST" class="needs-validation">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="operation" class="form-label fw-bold">انتخاب عملیات:</label>
+
+                        <select class="form-select form-select-lg" id="operation" name="operation" required onchange="this.form.submit()">
+                            <option value="calc_side3" {% if operation == "calc_side3" %}selected{% endif %}>
+                                محاسبه ضلع دیگر مثلث
+                            </option>
+
+                            <option value="pythagoras" {% if operation == "pythagoras" %}selected{% endif %}>
+                                قضیه فیثاغورس
+                            </option>
+
+                            <option value="sinus" {% if operation == "sinus" %}selected{% endif %}>
+                                سینوس
+                            </option>
+
+                            <option value="cosinus" {% if operation == "cosinus" %}selected{% endif %}>
+                                کسینوس
+                            </option>
+
+                            <option value="inscribed_ang" {% if operation == "inscribed_ang" %}selected{% endif %}>
+                                زاویه محاطی در دایره
+                            </option>
+                        </select>
+                    </div>
+
+
+                    {% if operation == "calc_side3" %}
+                        <div class="mb-4">
+                            <label>اندازه ضلع اول مثلث را وارد کنید:</label>
+                            <input type="number" name="side1" class="form-control" placeholder="ضلع اول"><br>
+
+                            <label>اندازه ضلع دوم مثلث را وارد کنید:</label>
+                            <input type="number" name="side2" class="form-control" placeholder="ضلع دوم"><br>
+
+                            <label>زاویه بین ضلع اول و دوم را وارد کنید:</label>
+                            <input type="number" name="angle_bet" class="form-control" placeholder="زاویه بین دو ضلع"><br>
+                        </div>
+
+
+                    {% elif operation == "pythagoras" %}
+                        <div class="mb-4">
+                            <label>ضلع اول مثلث قائم‌الزاویه:</label>
+                            <input type="number" name="r_side1" class="form-control" placeholder="ضلع اول"><br>
+
+                            <label>ضلع دوم مثلث قائم‌الزاویه:</label>
+                            <input type="number" name="r_side2" class="form-control" placeholder="ضلع دوم"><br>
+                        </div>
+
+
+                    {% elif operation == "sinus" %}
+                        <div class="mb-4">
+                            <label>روش محاسبه را انتخاب کنید:</label>
+
+                            <select name="career_sin" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+
+                                <option value="w_angle" {% if career_sin == "w_angle" %}selected{% endif %}>
+                                    با زاویه
+                                </option>
+
+                                <option value="w_formula" {% if career_sin == "w_formula" %}selected{% endif %}>
+                                    با فرمول
+                                </option>
+
+                            </select>
+                        </div>
+
+
+                        {% if career_sin == "w_angle" %}
+                            <div class="mb-4">
+                                <label>زاویه مثلث قائم‌الزاویه را وارد کنید:</label>
+                                <input type="number" name="angle_w" class="form-control" placeholder="زاویه"><br>
+                            </div>
+
+
+                        {% elif career_sin == "w_formula" %}
+                            <div class="mb-4">
+
+                                <label>ضلع مقابل زاویه را وارد کنید:</label>
+                                <input type="number" name="angle_acr" class="form-control" placeholder="ضلع مقابل"><br>
+
+                                <label>وتر مثلث قائم‌الزاویه را وارد کنید:</label>
+                                <input type="number" name="s_chord" class="form-control" placeholder="وتر"><br>
+
+                            </div>
+                        {% endif %}
+
+
+
+                    {% elif operation == "cosinus" %}
+                        <div class="mb-4">
+
+                            <label>روش محاسبه را انتخاب کنید:</label>
+
+                            <select name="career_cos" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+
+                                <option value="w_angle" {% if career_cos == "w_angle" %}selected{% endif %}>
+                                    با زاویه
+                                </option>
+
+                                <option value="w_formula" {% if career_cos == "w_formula" %}selected{% endif %}>
+                                    با فرمول
+                                </option>
+
+                            </select>
+                        </div>
+
+
+                        {% if career_cos == "w_angle" %}
+
+                            <div class="mb-4">
+                                <label>زاویه مثلث قائم‌الزاویه را وارد کنید:</label>
+                                <input type="number" name="angle_w" class="form-control" placeholder="زاویه"><br>
+                            </div>
+
+
+                        {% elif career_cos == "w_formula" %}
+
+                            <div>
+
+                                <label>ضلع مجاور زاویه را وارد کنید:</label>
+                                <input type="number" name="angle_adj" class="form-control" placeholder="ضلع مجاور"><br>
+
+                                <label>وتر مثلث قائم‌الزاویه را وارد کنید:</label>
+                                <input type="number" name="s-chord" class="form-control" placeholder="وتر"><br>
+
+                            </div>
+
+                        {% endif %}
+
+
+
+                    {% elif operation == "inscribed_ang" %}
+
+                        <div class="mb-4">
+                            <label>اندازه کمان دایره (زاویه) را وارد کنید:</label>
+                            <input type="number" name="bow_angle" class="form-control" placeholder="زاویه کمان"><br>
+                        </div>
+
+                    {% endif %}
+
+
+
+                    <div class="d-grid mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                            محاسبه
+                            <i class="bi bi-arrow-left ms-2"></i>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+
+
+        {% if result %}
+        <div class="card mt-4 border-0 shadow-sm bg-success-subtle">
+            <div class="card-body text-center">
+
+                <h5 class="card-title text-success">
+                    <i class="bi bi-check-circle me-2"></i>نتیجه
+                </h5>
+
+                <p class="card-text fs-5">{{ result }}</p>
+
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock content %}

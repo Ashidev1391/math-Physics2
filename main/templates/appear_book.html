@@ -1,0 +1,124 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<!-- نمایش پیام‌های سیستم -->
+{% if messages %}
+<div class="container mt-3">
+  {% for message in messages %}
+  <div class="alert alert-success text-center">{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<!-- بخش هدر و جستجو -->
+<section class="bg-light py-5">
+  <div class="container text-center">
+    <h1 class="fw-bold mb-3">آرشیو جزوات آموزشی</h1>
+
+    <p class="text-muted mb-4">دسترسی رایگان به بهترین جزوات ریاضیات و فیزیک</p>
+
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <form method="GET" action="{% url 'main:show_book' %}">
+          <div class="input-group input-group-lg shadow-sm">
+            <input
+              type="text"
+              name="q"
+              value="{{ current_query }}"
+              class="form-control"
+              placeholder="جستجوی نام جزوه..."
+            />
+
+            <button class="btn btn-primary" type="submit">
+              <i class="bi bi-search me-1"></i>
+              جستجو
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- بخش فرم آپلود -->
+<section class="py-5">
+  <div class="container col-md-8 col-lg-6">
+    <div class="card shadow-sm p-4" dir="rtl">
+      <h4 class="mb-3 text-center">ارسال جزوه جدید</h4>
+
+      <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary w-100 mt-3">
+          ثبت و ارسال برای بررسی
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- بخش لیست جزوات -->
+<section class="py-5">
+  <div class="container">
+    <!-- دکمه‌های فیلتر -->
+
+    <div class="d-flex justify-content-center mb-5 gap-2 flex-wrap">
+      <a
+        href="{% url 'main:show_book' %}"
+        class="btn btn-outline-primary {% if current_category == 'all' %}active{% endif %}"
+      >
+        همه
+      </a>
+
+      {% for cat in categories %}
+
+      <a
+        href="?category={{ cat.slug }}"
+        class="btn btn-outline-primary {% if current_category == cat.slug %}active{% endif %}"
+      >
+        {{ cat.name }}
+      </a>
+
+      {% endfor %}
+    </div>
+
+    <!-- لیست جزوات -->
+
+    <div class="row">
+      {% for res in resources %}
+
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card resource-card h-100 shadow-sm">
+          <div class="card-body text-center p-4">
+            <!-- لینک صفحه جزئیات -->
+
+            <a
+              href="{% url 'main:book_detail' res.id %}"
+              class="text-decoration-none text-dark"
+            >
+              <h5 class="card-title fw-bold">{{ res.title }}</h5>
+            </a>
+            <div class="d-flex justify-content-center gap-2 mb-3">
+              <span class="badge bg-secondary"> {{ res.category.name }} </span>
+
+              <span class="badge bg-success"> تأیید شده </span>
+            </div>
+            <h5>({{ user.username }})</h5>
+            <!-- رفتن به صفحه جزئیات -->
+
+            <a href="{% url 'main:book_detail' res.id %}" class="btn btn-primary w-100"><i class="bi bi-eye"></i> مشاهده جزئیات</a>
+          </div>
+        </div>
+      </div>
+
+      {% empty %}
+
+      <div class="col-12 text-center mt-5">
+        <h4 class="text-muted">موردی یافت نشد.</h4>
+      </div>
+
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

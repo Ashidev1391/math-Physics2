@@ -1,0 +1,73 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div
+  class="container p-5 my-5 border bg-primary text-white text-center"
+  style="border-radius: 10px"
+  dir="rtl"
+>
+  <h1>مشخصات جزوه انتخاب شده</h1>
+
+  <div
+    class="container p-5 my-5 border bg-white text-dark"
+    style="border-radius: 10px"
+  >
+    <div class="row align-items-center">
+      <!-- اطلاعات کتاب -->
+      <div class="col-md-5 d-flex flex-column">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h1>{{ book.title }}</h1>
+
+          <span class="badge rounded-pill bg-success"> تایید شده </span>
+        </div>
+
+        <!-- موضوع -->
+
+        <div class="mb-3 text-end">
+          <h5>موضوع: <span class="badge bg-secondary"> {{ book.category.name }} </span></h5>
+        </div>
+
+        <!-- توضیحات -->
+
+        <div class="border border-dark p-3 description-box">
+
+    <h5 class="text-end">
+        توضیحات:
+    </h5>
+
+    <p class="text-end mb-0">
+        {{ book.description }}
+    </p>
+
+</div>
+<!-- دانلود -->
+        <a href="{{ book.pdf_file.url }}" target="_blank" class="btn btn-primary mt-3">
+          <i class="bi bi-download"></i>
+
+          دانلود جزوه
+        </a>
+      </div>
+
+      <!-- تصویر -->
+
+      <div class="col-md-7 text-center">
+        {% if book.preview_image %}
+
+        <img
+          src="{{ book.preview_image.url }}"
+          class="img-fluid rounded"
+          alt="{{ book.title }}"
+        />
+
+        {% else %}
+
+        <p>تصویر پیش‌نمایش موجود نیست</p>
+
+        {% endif %}
+
+        <h5 class="mt-3">پیش‌نمایش جزوه</h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

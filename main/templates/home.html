@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% block content %}
+    <!-- بخش قهرمان (Hero Section) -->
+    <header class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-3">محاسبات ریاضیات و فیزیک با ما</h1>
+            <p class="lead mb-4" dir="rtl">این سایت قابلیت هایی مانند محاسبات فیزیک و ریاضیات و آپلود جزوه را دارا میباشد.</p>
+        </div>
+    </header>
+    <!-- بخش انتخاب رشته (Departments) -->
+    <section id="departments" class="py-5" dir="rtl">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">گزینه مورد نظر خود را انتخاب کنید</h2>
+                <p class="text-muted">روی گزینه مورد نظر کلیک کنید</p>
+            </div>
+
+            <div class="row g-4 justify-content-center">
+                <!-- کارت ریاضیات -->
+                <div class="col-md-5">
+                    <a href="{% url "main:math" %}" class="text-decoration-none"> <!-- لینک به سایت ریاضی -->
+                        <div class="card dept-card shadow">
+                            <div class="card-body text-center p-5 math-color">
+                                <i class="bi bi-calculator display-1 mb-3"></i>
+                                <h3 class="card-title fw-bold">بخش ریاضیات</h3>
+                                <p class="card-text mt-3">
+                                    کوسینوس،سینوس،محاسبه ضلع سوم مثلث و...
+                                    <br>
+                                </p>
+                                <button class="btn btn-dark mt-3 rounded-pill px-4">مشاهده سایت ریاضی <i class="bi bi-arrow-left"></i></button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <!-- کارت فیزیک -->
+                <div class="col-md-5">
+                    <a href="{% url "main:physics" %}" class="text-decoration-none"> <!-- لینک به سایت فیزیک -->
+                        <div class="card dept-card shadow">
+                            <div class="card-body text-center p-5 physics-color">
+                                <i class="bi bi-rocket-takeoff display-1 mb-3"></i>
+                                <h3 class="card-title fw-bold">بخش فیزیک</h3>
+                                <p class="card-text mt-3">
+                                    گرما،چگالی،حجم،مساحت و...
+                                    <br>
+                                </p>
+                                <button class="btn btn-dark mt-3 rounded-pill px-4">مشاهده سایت فیزیک <i class="bi bi-arrow-left"></i></button>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

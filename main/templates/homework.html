@@ -1,0 +1,48 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container py-5" dir="rtl">
+  <div class="text-center mb-5">
+    <h2 class="fw-bold">لیست تکالیف</h2>
+
+    <p class="text-secondary">مشاهده و مدیریت تکالیف ثبت شده</p>
+  </div>
+
+  <div class="text-center mb-4">
+    <a
+      href="{% url 'main:add_homework' %}"
+      class="btn btn-primary rounded-pill px-4"
+    >
+      ➕ بارگزاری تکلیف جدید
+    </a>
+  </div>
+
+  {% for homework in homeworks %}
+
+  <div class="card border-0 shadow-lg rounded-4 mb-4">
+    <div class="card-header bg-primary text-white rounded-top-4">
+      {{ homework.created_at_jalali }}
+    </div>
+
+    <div class="card-body text-center">
+      <h5 class="card-title fw-bold">
+        {{ homework.subject }} : {{ homework.classroom }}
+      </h5>
+
+      <p class="card-text mt-3">{{ homework.body }}</p>
+    </div>
+
+    <div class="card-footer text-secondary">
+      زمان تحویل: {{ homework.deadline_jalali }}
+    </div>
+  </div>
+
+  {% empty %}
+
+  <div class="text-center mt-5">
+    <h3 class="text-secondary">هنوز تکلیفی ثبت نشده است.</h3>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock content %}

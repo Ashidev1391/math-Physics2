@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block content %}
+
+<h2>پنل دانش آموز</h2>
+
+<div class="card p-3">
+  <h4>اطلاعات من</h4>
+
+  <p>نام: {{ student.name }}</p>
+
+  <p>کلاس: {{ student.classroom }}</p>
+</div>
+
+<hr />
+
+<h3>نمرات من</h3>
+
+<table class="table">
+  <tr>
+    <th>درس</th>
+
+    <th>نمره</th>
+  </tr>
+
+  {% for score in scores %}
+
+  <tr>
+    <td>{{ score.subject }}</td>
+
+    <td>{{ score.score }}</td>
+  </tr>
+
+  {% empty %}
+
+  <tr>
+    <td colspan="2">هنوز نمره‌ای ثبت نشده</td>
+  </tr>
+
+  {% endfor %}
+</table>
+
+<hr />
+
+<h3>حضور و غیاب</h3>
+
+<table class="table">
+  <tr>
+    <th>تاریخ</th>
+
+    <th>وضعیت</th>
+  </tr>
+
+  {% for item in attendances %}
+
+  <tr>
+    <td>{{ item.date }}</td>
+
+    <td>{% if item.status == "present" %} حاضر {% else %} غایب {% endif %}</td>
+  </tr>
+
+  {% empty %}
+
+  <tr>
+    <td>اطلاعاتی وجود ندارد</td>
+  </tr>
+
+  {% endfor %}
+</table>
+
+<hr />
+
+<h3>تکالیف کلاس</h3>
+
+{% for homework in homeworks %}
+
+<div class="card p-3 mb-2">
+  <h5>{{ homework.title }}</h5>
+
+  <p>{{ homework.description }}</p>
+</div>
+
+{% empty %}
+
+<p>تکلیفی وجود ندارد</p>
+
+{% endfor %} {% endblock %}

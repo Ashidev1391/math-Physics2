@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Sign Up - Physics{% endblock %}
+
+{% block content %}
+<div class="login-wrapper">
+    <div class="login-card card">
+        <div class="card-body">
+            <div class="text-center mb-4">
+                <div class="mb-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="56" height="56" fill="currentColor"
+                         class="bi bi-person-circle text-primary" viewBox="0 0 16 16">
+                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                        <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                    </svg>
+                </div>
+                <h3 class="fw-bold text-dark">خوش آمدید</h3>
+                <p class="text-muted mb-0">لطفاً ثبت نام کنید</p>
+            </div>
+
+            <form method="POST" action="{% url 'account:signup' %}">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                        {{ form.non_field_errors }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endif %}
+
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-semibold text-secondary">
+                            {{ field.label }}
+                        </label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <small class="form-text text-muted">{{ field.help_text }}</small>
+                        {% endif %}
+                        {% for error in field.errors %}
+                            <div class="text-danger small">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+
+                <div class="d-grid gap-2 mt-4">
+                    <button type="submit" class="btn btn-custom btn-lg">
+                        ثبت نام
+                    </button>
+                </div>
+            </form>
+
+            <div class="text-center mt-4">
+                <p class="mb-0 text-muted">
+                    آیا از قبل ثبت نام کرده اید؟
+                    <a href="{% url 'account:login' %}" class="link-custom">ورود</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

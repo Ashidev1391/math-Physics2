@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="row justify-content-center mt-4" dir="rtl">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-lg border-0 rounded-4">
+            <div class="card-body p-4 p-md-5">
+                <h2 class="text-center mb-4 fw-bold text-primary">
+                    <i class="bi bi-calculator me-2"></i> ابزارهای فیزیک
+                </h2>
+                <p class="text-center text-muted mb-4">برای شروع، یک عملیات را انتخاب کنید</p>
+                <form method="post" class="form">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="operation" class="form-label fw-bold">عملیات موردنظر را انتخاب کنید:</label>
+                        <select class="form-select form-select-lg" id="operation" name="operation" required onchange="this.form.submit()">
+                            <option value="density" {% if operation == "density" %}selected{% endif %}>چگالی</option>
+                            <option value="volume" {% if operation == "volume" %}selected{% endif %}>حجم</option>
+                            <option value="area" {% if operation == "area" %}selected{% endif %}>مساحت</option>
+                            <option value="elec" {% if operation == "elec" %}selected{% endif %}>بار الکتریکی</option>
+                            <option value="coul" {% if operation == "coul" %}selected{% endif %}>قانون کولن</option>
+                            <option value="kar" {% if operation == "kar" %}selected{% endif %}>کار</option>
+                            <option value="hot" {% if operation == "hot" %}selected{% endif %}>گرما</option>
+                            <option value="unit" {% if operation == "unit" %}selected{% endif %}>تبدیل واحد</option>
+                        </select>
+                    </div>
+                    {% if operation == "volume" %}
+                    <div class="mb-4">
+                        <label>شکل موردنظر را انتخاب کنید:</label>
+                        <select name="shape" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+                            <option value="cube" {% if career_vo == "cube" %}selected{% endif %}>مکعب</option>
+                            <option value="sphere" {% if career_vo == "sphere" %}selected{% endif %}>کره</option>
+                            <option value="rectangularcube" {% if career_vo == "rectangularcube" %}selected{% endif %}>مکعب مستطیل</option>
+                            <option value="density" {% if career_vo == "density" %}selected{% endif %}>چگالی</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        {% if career_vo == "cube" %}
+                            <label>طول مکعب را وارد کنید: </label>
+                            <input type="number" name="length_cube" class="form-control" placeholder="طول">
+                        {% elif career_vo == "sphere" %}
+                        <label>شعاع کره را وارد کنید: </label>
+                        <input type="number" name="radius" class="form-control" placeholder="شعاع">
+                        {% elif career_vo == "rectangularcube" %}
+                            <label>ارتفاع مکعب مستطیل را وارد کنید: </label>
+                            <input type="number" name="height_rcube" class="form-control" placeholder="ارتفاع">
+                            <br>
+                            <label>عرض مکعب مستطیل را وارد کنید: </label>
+                            <input type="number" name="width_rcube" class="form-control" placeholder="عرض">
+                            <br>
+                            <label>طول مکعب مستطیل را وارد کنید: </label>
+                            <input type="number" name="length_rcube" class="form-control" placeholder="طول">
+                        {% elif career_vo == "density" %}
+                            <label>چگالی را وارد کنید: </label>
+                            <input type="number decimal" name="density_vo" class="form-control" placeholder="چگالی">
+                            <br>
+                            <label>جرم را وارد کنید: </label>
+                            <input type="number" name="mass_vo" class="form-control" placeholder="جرم">
+                        {% endif %}
+                        
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "density" %}
+                            <label>جرم را وارد کنید: </label>
+                            <input type="number" name="mass_d" class="form-control" placeholder="جرم">
+                            <br>
+                            <label>حجم را وارد کنید: </label>
+                            <input type="number" name="volume_d" class="form-control" placeholder="حجم">
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "area" %}
+                            <label>شکل موردنظر را انتخاب کنید:</label>
+                            <select name="career_ar" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+                                <option value="مربع" {% if career_ar == "مربع" %}selected{% endif %}>مربع</option>
+                                <option value="triangle" {% if career_ar == "triangle" %}selected{% endif %}>مثلث</option>
+                                <option value="مستطیل" {% if career_ar == "مستطیل" %}selected{% endif %}>مستطیل</option>
+                                <option value="rhambus" {% if career_ar == "rhambus" %}selected{% endif %}>لوزی</option>
+                                <option value="circle" {% if career_ar == "circle" %}selected{% endif %}>دایره</option>
+                                <option value="cube" {% if career_ar == "cube" %}selected{% endif %}>مکعب</option>
+                                <option value="rc" {% if career_ar == "rc" %}selected{% endif %}>مکعب مستطیل</option>
+                                <option value="sphere" {% if career_ar == "sphere" %}selected{% endif %}>کره</option>
+                                <option value="para" {% if career_ar == "para" %}selected{% endif %}>متوازی‌الاضلاع</option>
+                            </select>
+                            {% if career_ar == "مربع" %}
+                                <label>طول ضلع را وارد کنید:</label>
+                                <input type="number" name="length_rect" class="form-control" placeholder="طول ضلع">
+                                <br>
+                                <label>ارتفاع را وارد کنید:</label>
+                                <input type="number" name="height_rect" class="form-control" placeholder="ارتفاع">
+                            {% elif career_ar == "مستطیل" %}
+                                <label>طول را وارد کنید:</label>
+                                <input type="number" name="length_rect" class="form-control" placeholder="طول ضلع">
+                                <br>
+                                <label>عرض را وارد کنید:</label>
+                                <input type="number" name="height_rect" class="form-control" placeholder="ارتفاع">
+                            {% elif career_ar == "triangle" %}
+                                <label>قاعده مثلث را وارد کنید:</label>
+                                <input type="number" name="base_tria" class="form-control" placeholder="قاعده مثلث">
+                                <br>
+                                <label>ارتفاع مثلث را وارد کنید:</label>
+                                <input type="number" name="height_tria" class="form-control" placeholder="ارتفاع مثلث">
+                            {% elif career_ar == "rhambus" %}
+                                <label>قطر بزرگ را وارد کنید</label>
+                                <input type="number" name="bigdiameter_rh" class="form-control" placeholder="قطر بزرگ">
+                                <br>
+                                <label>قطر کوچک را وارد کنید</label>
+                                <input type="number" name="smalldiameter_rh" class="form-control" placeholder="قطر کوچک">
+                            {% elif career_ar == "circle" %}
+                                <label>روش محاسبه را انتخاب کنید:</label>
+                                <select name="squre_c" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+                                    <option value="squre_cd" {% if squre_c == "squre_cd" %}selected{% endif %}>با قطر</option>
+                                    <option value="squre_cr" {% if squre_c == "squre_cr" %}selected{% endif %}>با شعاع</option>
+                                </select>
+                                {% if squre_c == "squre_cd" %}
+                                    <label>قطر را وارد کنید</label>
+                                    <input type="number" name="di_cir" class="form-control" placeholder="قطر">
+                                {% elif squre_c == "squre_cr" %}
+                                    <label>شعاع را وارد کنید</label>
+                                    <input type="number" name="ra_cir" class="form-control" placeholder="شعاع">
+                                {% endif %}
+                            {% elif career_ar == "cube" %}
+                                <label>طول را وارد کنید:</label>
+                                <input type="number" name="length_cu" class="form-control" placeholder="طول">
+                            {% elif career_ar == "rc" %}
+                                <label>طول را وارد کنید:</label>
+                                <input type="number" name="le_rc" class="form-control" placeholder="طول">
+                                <br>
+                                <label>عرض را وارد کنید:</label>
+                                <input type="number" name="wi_rc" class="form-control" placeholder="عرض">
+                                <br>
+                                <label>ارتفاع را وارد کنید:</label>
+                                <input type="number" name="he_rc" class="form-control" placeholder="ارتفاع">
+                            {% elif career_ar == "sphere" %}
+                                <label>شعاع را وارد کنید:</label>
+                                <input type="number" name="ra_sq" class="form-control" placeholder="شعاع">
+                            {% elif career_ar == "para" %}
+                                <label>قاعده متوازی‌الاضلاع را وارد کنید:</label>
+                                <input type="number" name="ba_para" class="form-control" placeholder="قاعده متوازی‌الاضلاع">
+                                <br>
+                                <label>ارتفاع متوازی‌الاضلاع را وارد کنید:</label>
+                                <input type="number" name="he_para" class="form-control" placeholder="ارتفاع متوازی‌الاضلاع">
+                            {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "elec" %}
+                        <label>نوع تبادل الکترون:</label>
+                        <select name="career_ele" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+                            <option value="take" {% if career_ele == "take" %}selected{% endif %}>گرفتن الکترون</option>
+                            <option value="give" {% if career_ele == "give" %}selected{% endif %}>دادن الکترون</option>
+                        </select>
+                            {% if career_ele == "take" %}
+                                <label>تعداد الکترون‌های گرفته‌شده:</label>
+                                <input type="number" name="elec_ta" class="form-control" placeholder="تعداد الکترون">
+                            {% elif career_ele == "give" %}
+                                <label>تعداد الکترون‌های داده‌شده:</label>
+                                <input type="number" name="elec_gi" class="form-control" placeholder="تعداد الکترون">
+                            {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "coul" %}
+                            <label>بار الکتریکی (q1) را وارد کنید:</label>
+                            <input type="number" name="q1_coul" class="form-control" placeholder="بار الکتریکی (q1)">
+                            <br>
+                            <label>بار الکتریکی (q2) را وارد کنید:</label>
+                            <input type="number" name="q2_coul" class="form-control" placeholder="بار الکتریکی (q2)">
+                            <br>
+                            <label>فاصله را بر حسب متر وارد کنید:</label>
+                            <input type="number" name="dist_coul" class="form-control" placeholder="فاصله بر حسب متر">
+                    </div>
+                    <div class="mb-4">    
+                        {% elif operation == "kar" %}
+                            <label>نیرو را وارد کنید:</label>
+                            <input type="number" name="force_kar" class="form-control" placeholder="نیرو">
+                            <br>
+                            <label>جابجایی را وارد کنید:</label>
+                            <input type="number" name="move_kar" class="form-control" placeholder="جابجایی">
+                            <br>
+                            <label>زاویه بین نیرو و جابجایی را وارد کنید:</label>
+                            <input type="number" name="angle_kar" class="form-control" placeholder="زاویه بین نیرو و جابجایی" min="0", max="180">
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "hot" %}
+                            <label>نوع محاسبه گرما را انتخاب کنید:</label>
+                            <select name="heat" class="form-select form-select-lg mb-3" onchange="this.form.submit()">
+                                <option value="c" {% if heat == "c" %}selected{% endif %}>گرمای ویژه</option>
+                                <option value="C" {% if heat == "C" %}selected{% endif %}>ظرفیت گرمایی</option>
+                            </select>
+                            {% if heat == "c" %}
+                                <label>جرم را وارد کنید:</label>
+                                <input type="number" name="mas_heat" class="form-control" placeholder="جرم">
+                                <br>
+                                <label>تغییر دما را وارد کنید:</label>
+                                <input type="number" name="temp_heat" class="form-control" placeholder="تغییر دما">
+                                <br>
+                                <label>گرمای ویژه را وارد کنید:</label>
+                                <input type="number" name="spe_heat" class="form-control" placeholder="گرمای ویژه">
+                            {% elif heat == "C" %}
+                                <label>ظرفیت گرمایی را وارد کنید:</label>
+                                <input type="number" name="cap_heat" class="form-control" placeholder="ظرفیت گرمایی">
+                                <br>
+                                <label>تغییر دما را وارد کنید</label>
+                                <input type="number" name="stemp_heat" class="form-control" placeholder="تغییر دما">
+                            {% endif %}
+                    </div>
+                    <div class="mb-4">
+                        {% elif operation == "unit" %}
+                            <label>مقدار را وارد کنید:</label>
+                            <input type="number" name="value" class="form-control" placeholder="مقدار">
+                            <br>
+                            <label>واحد اول را انتخاب کنید:</label>
+                            <select name="unit" class="form-control">
+                                <option value="deca" {% if unit == "deca" %}selected{% endif %}>دکا</option>
+                                <option value="hecto" {% if unit == "hecto" %}selected{% endif %}>هکتو</option>
+                                <option value="kilo" {% if unit == "kilo" %}selected{% endif %}>کیلو</option>
+                                <option value="mega" {% if unit == "mega" %}selected{% endif %}>مگا</option>
+                                <option value="giga" {% if unit == "giga" %}selected{% endif %}>گیگا</option>
+                                <option value="tra" {% if unit == "tra" %}selected{% endif %}>ترا</option>
+                                <option value="deci" {% if unit == "deci" %}selected{% endif %}>دسی</option>
+                                <option value="centi" {% if unit == "centi" %}selected{% endif %}>سانتی</option>
+                                <option value="mili" {% if unit == "mili" %}selected{% endif %}>میلی</option>
+                                <option value="micro" {% if unit == "micro" %}selected{% endif %}>میکرو</option>
+                                <option value="nano" {% if unit == "nano" %}selected{% endif %}>نانو</option>
+                                <option value="pico" {% if unit == "pico" %}selected{% endif %}>پیکو</option>
+                            </select>
+                            <br>
+                            <label>واحد دوم را انتخاب کنید:</label>
+                            <select name="unit2" class="form-control">
+                                <option value="deca" {% if unit2 == "daca" %}selected{% endif %}>دکا</option>
+                                <option value="hecto" {% if unit2 == "hecto" %}selected{% endif %}>هکتو</option>
+                                <option value="kilo" {% if unit2 == "kilo" %}selected{% endif %}>کیلو</option>
+                                <option value="mega" {% if unit2 == "mega" %}selected{% endif %}>مگا</option>
+                                <option value="giga" {% if unit2 == "giga" %}selected{% endif %}>گیگا</option>
+                                <option value="tra" {% if unit2 == "tra" %}selected{% endif %}>ترا</option>
+                                <option value="deci" {% if unit2 == "deci" %}selected{% endif %}>دسی</option>
+                                <option value="centi" {% if unit2 == "centi" %}selected{% endif %}>سانتی</option>
+                                <option value="mili" {% if unit2 == "mili" %}selected{% endif %}>میلی</option>
+                                <option value="micro" {% if unit2 == "micro" %}selected{% endif %}>میکرو</option>
+                                <option value="nano" {% if unit2 == "nano" %}selected{% endif %}>نانو</option>
+                                <option value="pico" {% if unit2 == "pico" %}selected{% endif %}>پیکو</option>
+                            </select>
+                    </div>
+                    {% endif %}
+                    <div class="d-grid mt-4 px-4 pb-4">
+                        <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                            محاسبه <i class="bi bi-arrow-left ms-2"></i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        {% if result %}
+        <div class="card mt-4 border-0 shadow-sm bg-success-subtle">
+            <div class="card-body text-center">
+                <h5 class="card-title text-success"><i class="bi bi-check-circle me-2"></i>نتیجه</h5>
+                <p class="card-text fs-5">{{ result }}</p>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container py-5">
+  {% for classroom in classrooms %}
+
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">{{ classroom.name }}</h2>
+
+    <p class="text-secondary">لیست دانش‌آموزان این کلاس</p>
+  </div>
+
+  <div class="text-center mb-4">
+    <a
+      href="{% url 'main:attendance' classroom.id %}"
+      class="btn btn-primary rounded-pill px-4"
+    >
+      ثبت حضور و غیاب این کلاس
+    </a>
+  </div>
+
+  <div class="card border-0 rounded-5 shadow-lg p-4 mb-5">
+    <table class="table table-hover text-center align-middle mb-0" dir="rtl">
+      <thead class="table-primary">
+        <tr>
+          <th>ردیف</th>
+
+          <th>نام</th>
+
+          <th>نام خانوادگی</th>
+
+          <th>کلاس</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {% for student in classroom.student_set.all %}
+
+        <tr>
+          <td>{{ forloop.counter }}</td>
+
+          <td>
+            <a
+              href="{% url 'main:student_detail' student.id %}"
+              class="text-decoration-none"
+            >
+              {{ student.first_name }}
+            </a>
+          </td>
+
+          <td>{{ student.last_name }}</td>
+
+          <td>{{ student.classroom }}</td>
+        </tr>
+
+        {% empty %}
+
+        <tr>
+          <td colspan="4" class="text-secondary">دانش‌آموزی ثبت نشده است.</td>
+        </tr>
+
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% endfor %}
+</div>
+
+{% endblock content %}

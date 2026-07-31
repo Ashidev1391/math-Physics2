@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form method="post" dir="rtl">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit">
+        ثبت نمره
+    </button>
+
+</form>
+
+{% endblock %}
